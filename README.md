@@ -7,7 +7,7 @@ TerraVista is a cutting-edge, multiplatform Earth simulation that brings our pla
 * Interactive 3D terrain with elevation and environmental data
 * Multiplatform support
 * Climate, Geography, and Oceanography exploration
-** More features to come
+* **More features to come**
 
 ## Tools and Languages
 * Python
