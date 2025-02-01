@@ -13,9 +13,10 @@ TerraVista is a cutting-edge, multiplatform Earth simulation that brings our pla
 * Python
 * Javascript
 * HTML, CSS, JavaScript
+* React + Vite
 * Three.JS
 * Unreal Engine 5
 * Numerous Datasheets
 
 ## Most Recent Update
-Nothing to see here
+Created a Three.JS project using React and Vite. Additionally, created a basic cube with orbiting!
