@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
 function App() {
   useEffect(() => {
@@ -11,7 +12,7 @@ function App() {
       1,
       1000
     );
-    camera.position.z = 96;
+    camera.position.set( 0, 20, 100 );
 
     const canvas = document.getElementById('myThreeJsCanvas');
     const renderer = new THREE.WebGLRenderer({
@@ -20,6 +21,9 @@ function App() {
     });
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
+
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.update();
 
     const ambientLight = new THREE.SpotLight(0xffffff, 0.5);
     ambientLight.castShadow = true;
@@ -38,6 +42,8 @@ function App() {
     const animate = () => {
       boxMesh.rotation.x += 0.01;
       boxMesh.rotation.y += 0.01;
+
+      controls.update();
       renderer.render(scene, camera);
       window.requestAnimationFrame(animate);
     };
