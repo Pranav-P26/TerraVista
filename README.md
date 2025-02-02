@@ -19,4 +19,4 @@ TerraVista is a cutting-edge, multiplatform Earth simulation that brings our pla
 * Numerous Datasheets
 
 ## Most Recent Update
-Created a Three.JS project using React and Vite. Additionally, created a basic cube with orbiting!
+Added an earth model! It has 16K textures, realistic rotation on an axis and speed, as well as relative sizing
