@@ -1,9 +1,13 @@
 import { useEffect } from "react";
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { createEarth } from './Planets/Earth/Earth';
 
 function App() {
   useEffect(() => {
+    const EARTH_AXIAL_TILT = 23.5;
+    const EARTH_ROTATION_SPEED = 360 / (24 * 60 * 60);
+
     const scene = new THREE.Scene();
 
     const camera = new THREE.PerspectiveCamera(
@@ -12,7 +16,7 @@ function App() {
       1,
       1000
     );
-    camera.position.set( 0, 20, 100 );
+    camera.position.set(0, 20, 100);
 
     const canvas = document.getElementById('myThreeJsCanvas');
     const renderer = new THREE.WebGLRenderer({
@@ -23,6 +27,10 @@ function App() {
     document.body.appendChild(renderer.domElement);
 
     const controls = new OrbitControls(camera, renderer.domElement);
+    controls.minDistance = 10;
+    controls.maxDistance = 500;
+    controls.minPolarAngle = 0;
+    controls.maxPolarAngle = Math.PI;
     controls.update();
 
     const ambientLight = new THREE.SpotLight(0xffffff, 0.5);
@@ -34,20 +42,29 @@ function App() {
     spotLight.position.set(0, 64, 32);
     scene.add(spotLight);
 
-    const boxGeometry = new THREE.BoxGeometry(16,16,16);
-    const boxMaterial = new THREE.MeshNormalMaterial();
-    const boxMesh = new THREE.Mesh(boxGeometry, boxMaterial);
-    scene.add(boxMesh);
+    const earth = createEarth(scene);
+
+    earth.rotation.x = THREE.MathUtils.degToRad(-EARTH_AXIAL_TILT);
+
+    const clock = new THREE.Clock();
 
     const animate = () => {
-      boxMesh.rotation.x += 0.01;
-      boxMesh.rotation.y += 0.01;
+      const delta = clock.getDelta();
+
+      earth.rotation.y += THREE.MathUtils.degToRad(EARTH_ROTATION_SPEED) * delta;
+
+      console.log(`Earth rotation: x=${THREE.MathUtils.radToDeg(earth.rotation.x)}, y=${THREE.MathUtils.radToDeg(earth.rotation.y)}`);
 
       controls.update();
       renderer.render(scene, camera);
       window.requestAnimationFrame(animate);
     };
     animate();
+
+    return () => {
+      renderer.dispose();
+      controls.dispose();
+    };
   }, []);
 
   return (
@@ -59,4 +76,4 @@ function App() {
   )
 }
 
-export default App
+export default App;
