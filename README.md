@@ -19,4 +19,4 @@ TerraVista is a cutting-edge, multiplatform Earth simulation that brings our pla
 * Numerous Datasheets
 
 ## Most Recent Update
-Added an earth model! It has 16K textures, realistic rotation on an axis and speed, as well as relative sizing
+Added GLSL shading to Earth model! Now, there is always one side of the earth that is darker than the other side.
